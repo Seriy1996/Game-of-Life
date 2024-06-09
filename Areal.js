@@ -262,8 +262,6 @@ export default class Areal {
     }
 
     checkXinDispay(x) {
-        console.log('this.cellSize', this.cellSize)
-        console.log('x', x)
         return x > this.canvas.width || x < -this.cellSize
     }
 

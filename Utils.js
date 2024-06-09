@@ -17,17 +17,17 @@ export class PinchZoom {
 
     Down(e) {
         e.preventDefault()
-        if (e.touches.length < 2) return
+        if (e.changedTouches.length < 2) return
         this.isDown = true
-        this.downDelta = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY)
+        this.downDelta = Math.hypot(e.changedTouches[0].pageX - e.changedTouches[1].pageX, e.changedTouches[0].pageY - e.changedTouches[1].pageY)
         if (this.start) this.start()
     }
 
     Move(e) {
         e.preventDefault()
         if (!this.isDown) return
-        if (e.touches.length < 2) return
-        this.moveDelta = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY)
+        if (e.changedTouches.length < 2) return
+        this.moveDelta = Math.hypot(e.changedTouches[0].pageX - e.changedTouches[1].pageX, e.changedTouches[0].pageY - e.changedTouches[1].pageY)
 
         this.newDelta = Math.round((this.moveDelta - this.downDelta))
 
@@ -71,8 +71,8 @@ export class Drag {
         this.isDown = true
 
         this.cursorOld = this.el.style.cursor
-        if (e?.touches?.length) {
-            e = e.touches[0]
+        if (e?.changedTouches?.length) {
+            e = e.changedTouches[0]
         }
 
         this.downX = e.clientX
@@ -86,8 +86,8 @@ export class Drag {
         if (!this.isDown) return
 
         this.el.style.cursor = 'grabbing'
-        if (e?.touches?.length) {
-            e = e.touches[0]
+        if (e?.changedTouches?.length) {
+            e = e.changedTouches[0]
         }
 
         this.moveX = e.clientX
@@ -104,8 +104,8 @@ export class Drag {
         this.isDown = false
 
         this.el.style.cursor = this.cursorOld
-        if (e?.touches?.length) {
-            e = e.touches[0]
+        if (e?.changedTouches?.length) {
+            e = e.changedTouches[0]
         }
 
         this.upX = e.clientX
