@@ -17,17 +17,17 @@ export class PinchZoom {
 
     Down(e) {
         e.preventDefault()
-        if (e.changedTouches.length < 2) return
+        if (e.touches.length < 2) return
         this.isDown = true
-        this.downDelta = Math.hypot(e.changedTouches[0].pageX - e.changedTouches[1].pageX, e.changedTouches[0].pageY - e.changedTouches[1].pageY)
+        this.downDelta = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY)
         if (this.start) this.start()
     }
 
     Move(e) {
         e.preventDefault()
         if (!this.isDown) return
-        if (e.changedTouches.length < 2) return
-        this.moveDelta = Math.hypot(e.changedTouches[0].pageX - e.changedTouches[1].pageX, e.changedTouches[0].pageY - e.changedTouches[1].pageY)
+        if (e.touches.length < 2) return
+        this.moveDelta = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY)
 
         this.newDelta = Math.round((this.moveDelta - this.downDelta))
 
