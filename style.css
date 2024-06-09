@@ -1,0 +1,432 @@
+:root {
+    --background: rgba(0, 0, 0, .4);
+    --color: rgba(255, 255, 255, .6);
+    --border: solid 2px rgba(255, 255, 255, .2)
+}
+
+* {
+    user-select: none;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: radial-gradient(at top, #484848, #383838);
+    color: var(--color);
+    position: relative;
+
+    display: grid;
+    grid-template: 70px 1fr / 1fr;
+    grid-template-areas:
+        "header  menu"
+        "game    game";
+}
+
+@media (max-width: 720px) {
+    body {
+        grid-template: 70px 70px 1fr/ 1fr;
+        grid-template-areas:
+            "header"
+            "menu"
+            "game";
+    }
+
+    body header {
+        grid-area: header;
+        border-bottom: none;
+    }
+
+}
+
+header {
+    grid-area: header;
+    background: var(--background);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .25rem;
+    border-bottom: var(--border);
+}
+
+.stat {
+    font-size: .8rem;
+}
+
+menu {
+    grid-area: menu;
+    margin: 0;
+    background: var(--background);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: .5rem;
+    border-bottom: var(--border);
+}
+
+h1 {
+    margin: 0;
+}
+
+header .menu {
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+}
+
+button {
+    margin: 0;
+    padding: 1rem;
+    border-radius: 50%;
+    background: transparent;
+    border: 2px solid var(--color);
+    margin: .25rem;
+    position: relative;
+    transition: all .3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+button:hover {
+    box-shadow: 0 0 .25rem var(--color);
+    transform: scale(1.1);
+}
+
+button.active {
+    filter: invert(1);
+    /* background: var(--background); */
+}
+
+button::after, button::before {
+    content: '';
+    position: absolute;
+    /* box-shadow: inset .05rem .05rem .5rem var(--background); */
+}
+
+button.stop::after {
+    width: 1rem;
+    height: 1rem;
+    background: var(--color);
+}
+
+button.pause::after {
+    left: .6rem;
+    width: .3rem;
+    height: 1rem;
+    background: var(--color);
+}
+
+button.pause::before {
+    left: 1.1rem;
+    width: .3rem;
+    height: 1rem;
+    background: var(--color);
+}
+
+button.start::after {
+    left: .65rem;
+    border: .6rem solid transparent;
+    border-left: 1rem solid var(--color);
+}
+
+button.step::after {
+    left: 1rem;
+    border: .5rem solid transparent;
+    border-left: .7rem solid var(--color);
+}
+
+button.step::before {
+    left: .6rem;
+    width: .2rem;
+    height: 1rem;
+    background: var(--color);
+}
+
+button.speed::after {
+    left: .55rem;
+    border: .6rem solid transparent;
+    border-left: .6rem solid var(--color);
+}
+
+button.speed::before {
+    left: 1.15rem;
+    border: .6rem solid transparent;
+    border-left: .6rem solid var(--color);
+}
+
+.zoom-cont {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+}
+
+.game {
+    grid-area: game;
+    display: flex;
+    overflow: hidden;
+}
+
+canvas {
+    margin: auto;
+    border-radius: .5rem;
+    border: var(--border);
+}
+
+#settingsForm {
+    display: grid;
+}
+
+#gameLoader {
+    display: flex;
+}
+
+#gameLoader input,
+#settingsForm input {
+    background: var(--background);
+    border: var(--border);
+    padding: .5rem;
+    color: var(--color);
+    border-radius: .5rem;
+    transition: all .3s;
+    width: 100%;
+}
+
+#gameLoader input {
+    padding: .25rem;
+}
+
+#gameLoader input:focus-visible,
+#gameLoader input:focus,
+#gameLoader input:hover,
+#settingsForm input:focus-visible,
+#settingsForm input:focus,
+#settingsForm input:hover {
+    border-color: var(--color);
+    outline: 0
+}
+
+#settingsForm label {
+    margin: 0;
+    padding-left: .5rem;
+}
+
+#gameLoader input[type=submit] {
+    margin-bottom: .5rem;
+    cursor: pointer;
+}
+
+#settingsForm input[type=submit] {
+    margin-top: 1rem;
+    cursor: pointer;
+}
+
+.customCheckBox {
+    display: flex;
+    align-items: center;
+    padding-top: .5rem;
+    position: relative;
+}
+
+.customCheckBox label {
+    width: 100%;
+    position: relative;
+    display: flex;
+}
+
+.customCheckBox input+label::after {
+    content: '';
+    position: absolute;
+    margin-left: .5rem;
+    top: 1rem;
+    left: .6rem;
+    width: 0rem;
+    height: 0rem;
+    opacity: 0;
+    transition: all .1s;
+    border: solid 0rem var(--color);
+    border-left: none;
+    border-top: none;
+    transform: rotate(35deg);
+}
+
+.customCheckBox input:checked+label::after {
+    opacity: 1;
+    top: .1rem;
+    width: .3rem;
+    height: .8rem;
+    border-width: .2rem;
+}
+
+.customCheckBox label::before {
+    content: '';
+    margin-right: .5rem;
+    display: block;
+    width: 1.2rem;
+    height: 1.2rem;
+    border: var(--border);
+    border-radius: .5rem;
+}
+
+.customCheckBox input[type=checkbox] {
+    display: none;
+}
+
+dialog {
+    background: radial-gradient(at top, #484848, #383838);
+    color: var(--color);
+    border: var(--border);
+    border-radius: 1rem;
+    padding: 0;
+}
+
+.dialog-header {
+    margin: 0;
+    padding: 1rem;
+    padding-bottom: .5rem;
+    border-bottom: var(--border);
+    display: flex;
+    justify-content: space-between;
+}
+
+.dialog-header h2 {
+    margin: 0;
+}
+
+.dialog-header .close {
+    padding: 1rem;
+    margin: .25rem;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.dialog-header .close::after,
+.dialog-header .close::before {
+    content: '';
+    position: absolute;
+    border-radius: .25rem;
+    width: .2rem;
+    height: 1.5rem;
+    background: #b2b2b2;
+}
+
+.dialog-header .close::after {
+    transform: rotate(45deg);
+}
+
+.dialog-header .close::before {
+    transform: rotate(-45deg);
+}
+
+.dialog-body {
+    display: grid;
+    grid-gap: .25rem;
+    max-width: 100%;
+    width: 500px;
+    padding: 1rem;
+}
+
+dialog::backdrop {
+    animation: showBackdrop .3s ease normal;
+    /* backdrop-filter: blur(0.25rem); */
+    background: var(--background);
+}
+
+dialog[open] {
+    animation: show .3s ease normal;
+}
+
+.loader::after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    background: var(--background);
+    position: absolute;
+    top: 0;
+    border-radius: 1rem;
+}
+
+.loader::before {
+    content: '';
+    width: 5rem;
+    height: 5rem;
+    border: var(--border);
+    border-width: 1rem;
+    border-left-color: var(--background);
+    border-right-color: var(--background);
+    position: absolute;
+    top: calc(50% - 3rem);
+    left: calc(50% - 3rem);
+    border-radius: 50%;
+    animation: show .3s ease normal, loader 2s ease-in-out infinite;
+}
+
+@keyframes loader {
+    0% {
+        transform: rotate(0);
+    }
+
+    50% {
+        transform: rotate(720deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes show {
+    from {
+        opacity: 0;
+        transform: scale(.5);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes showBackdrop {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    border-radius: .5rem;
+    margin: 5rem;
+    padding: 5rem;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color);
+    border-radius: 1rem;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--background);
+    border-radius: .25rem;
+}
+
+::-webkit-scrollbar-button {
+    width: 10px;
+    background: transparent;
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent;
+}

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game of Life</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h1>Game of Life</h1>
+        <div class="stat">
+            <div><b>Поколение:</b> <span class="generation">0</span></div>
+            <div><b>Счет:</b> <span class="count">0</span></div>
+            <div><b>Время шага:</b> <span class="timeStep">0</span></div>
+        </div>
+    </header>
+
+    <menu class="menu">
+        <div class="zoom-cont">
+            <div>ZOOM: <span class="zoom-info">20</span></div>
+            <input class="zoom" type="range" title="ZOOM" step="1" max="20" min="1" value="20">
+        </div>
+        <button class="stop" title="Stop"></button>
+        <button class="pause active" title="Pause"></button>
+        <button class="step" title="1 step"></button>
+        <button class="start" title="Start"></button>
+        <button class="speed" title="Speed x2"></button>
+    </menu>
+
+    <div class="game"></div>
+
+    <dialog id="settings">
+        <div class="dialog-header">
+            <h2>Settings</h2>
+            <div class="close" onclick="window.settings.close()"></div>
+        </div>
+        <div class="dialog-body">
+            <div id="gameLoader">
+                <input type="submit" id="saveGame" value="Save game">
+                <input type="submit" id="loadGame" value="Load game">
+            </div>
+            <form id="settingsForm" method="dialog">
+                <label for="cols">Width: <small>(1-2000)</small></label>
+                <input type="number" name="cols" placeholder="Width" value="50" min="1" max="2000" step="1" required>
+
+                <label for="rows">Height: <small>(1-2000)</small></label>
+                <input type="number" name="rows" placeholder="Height" value="50" min="1" max="2000" step="1" required>
+
+                <label for="speed">Speed: <small>(100-1000)</small></label>
+                <input type="number" name="speed" placeholder="Speed" value="200" min="100" max="1000" step="1"
+                    required>
+
+                <div class="customCheckBox">
+                    <input type="checkbox" name="randomCell" id="randomCell">
+                    <label for="randomCell">Random cell</label>
+                </div>
+
+                <input type="submit" name="submit" value="Star">
+            </form>
+        </div>
+    </dialog>
+
+    <script type="module" src="main.js"></script>
+</body>
+
+</html>
